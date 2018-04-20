@@ -110,7 +110,11 @@ func Generate(opts GenerateOpts) (*otp.Key, error) {
 	}
 
 	if opts.SecretSize == 0 {
-		opts.SecretSize = 20
+		opts.SecretSize = 10
+	}
+
+	if opts.Digits == 0 {
+		opts.Digits = otp.DigitsSix
 	}
 
 	// otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
