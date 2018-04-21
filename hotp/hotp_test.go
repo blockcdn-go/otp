@@ -63,5 +63,5 @@ func TestGenerate(t *testing.T) {
 	assert.Nil(t, err)
 	assert.DeepEqual(t, k.Issuer(), "BlockCDN")
 	assert.DeepEqual(t, k.AccountName(), "alice@example.com")
-	assert.DeepEqual(t, len(k.Secret()), 16)
+	assert.Len(t, k.Secret(), 16)
 }
