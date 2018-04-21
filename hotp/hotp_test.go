@@ -42,7 +42,7 @@ func TestValidate(t *testing.T) {
 	}
 }
 
-func TestGenerate(t *testing.T) {
+func TestGenerateCode(t *testing.T) {
 	for _, tx := range rfcMatrixTCs {
 		passcode, err := GenerateCodeCustom(tx.Secret, tx.Counter, Options{
 			Digits:    otp.DigitsSix,
@@ -52,4 +52,16 @@ func TestGenerate(t *testing.T) {
 		assert.Nil(t, err)
 		assert.DeepEqual(t, passcode, tx.HOTP)
 	}
+}
+
+func TestGenerate(t *testing.T) {
+	k, err := Generate(GenerateOpts{
+		Issuer:      "BlockCDN",
+		AccountName: "alice@example.com",
+	})
+
+	assert.Nil(t, err)
+	assert.DeepEqual(t, k.Issuer(), "BlockCDN")
+	assert.DeepEqual(t, k.AccountName(), "alice@example.com")
+	assert.DeepEqual(t, len(k.Secret()), 16)
 }
